@@ -8,7 +8,7 @@ enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
 enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 
 /* TODO: Re-organize the `CPU_state' structure to match the register
- * encoding scheme in i386 instruction format. For example, if we
+ * encoding scheme(方案、格式) in i386 instruction format. For example, if we
  * access cpu.gpr[3]._16, we will get the `bx' register; if we access
  * cpu.gpr[1]._8[1], we will get the 'ch' register. Hint: Use `union'.
  * For more details about the register encoding scheme, see i386 manual.
@@ -16,9 +16,9 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 
 typedef struct {
   struct {
-    uint32_t _32;
-    uint16_t _16;
-    uint8_t _8[2];
+    uint32_t _32;					//32 bits register
+    uint16_t _16;					//16 bits register
+    uint8_t _8[2];					//the high 8 bits register and low 8 bits register
   } gpr[8];
 
   /* Do NOT change the order of the GPRs' definitions. */
