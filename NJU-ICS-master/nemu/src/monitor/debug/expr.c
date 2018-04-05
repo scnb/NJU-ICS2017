@@ -19,7 +19,7 @@ static struct rule {
 } rules[] = {
 
   /* TODO: Add more rules.
-   * Pay attention to the precedence level of different rules.
+   * Pay attention to the precedence level(优先级) of different rules.
    */
 
   {" +", TK_NOTYPE},    // spaces

@@ -14,10 +14,12 @@ char* rl_gets() {
   static char *line_read = NULL;
 
   if (line_read) {
+  	/* After using the allocated variable, you must free it */ 
     free(line_read);
     line_read = NULL;
   }
 
+  /* (nemu) is a prompt */
   line_read = readline("(nemu) ");
 
   if (line_read && *line_read) {
@@ -27,17 +29,24 @@ char* rl_gets() {
   return line_read;
 }
 
+/* continue to run the program which had been stopped before */
 static int cmd_c(char *args) {
+ /* when the arg of cpu_exec is -1, it means cpu runs without stop */
+ /* because the argument's tyep of cpu_exec is uint64_t, so -1 will
+   * be turn to a very very large number: 1111……1111(total 64)
+ */
   cpu_exec(-1);
   return 0;
 }
 
+/* exit the nemu */
 static int cmd_q(char *args) {
   return -1;
 }
 
 static int cmd_help(char *args);
 
+/* help info that cmd_help function will print */
 static struct {
   char *name;
   char *description;
@@ -46,12 +55,28 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  {"si","Let program execute(single step) N instructions and pause; when N is not given, the default is 1",cmd_si},
   /* TODO: Add more commands */
 
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
+
+/* single step execution */
+static int cmd_si(char *args)
+{
+	/* if args is not given, then just execute 1 instruction */
+	if (args == NULL)
+	{
+		cpu_exec(1);
+	}
+	else
+	{
+		/* Trans char to int */
+		int N = (int)(*args);
+		cpu_exec(N);
+	}
+}
 
 static int cmd_help(char *args) {
   /* extract the first argument */
@@ -60,23 +85,27 @@ static int cmd_help(char *args) {
 
   if (arg == NULL) {
     /* no argument given */
+    /* then print all the help info */
     for (i = 0; i < NR_CMD; i ++) {
       printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
     }
   }
   else {
     for (i = 0; i < NR_CMD; i ++) {
+		/* if user entered a command, then find which comman user entered */
       if (strcmp(arg, cmd_table[i].name) == 0) {
         printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
         return 0;
       }
     }
+	/* If there is no matched command, print texts showed below */
     printf("Unknown command '%s'\n", arg);
   }
   return 0;
 }
 
 void ui_mainloop(int is_batch_mode) {
+  /* batch_mode:批处理模式 */
   if (is_batch_mode) {
     cmd_c(NULL);
     return;
@@ -92,6 +121,7 @@ void ui_mainloop(int is_batch_mode) {
 
     /* treat the remaining string as the arguments,
      * which may need further parsing
+     * 将剩余的字符串当做参数，将来可能会被解析
      */
     char *args = cmd + strlen(cmd) + 1;
     if (args >= str_end) {
@@ -106,6 +136,7 @@ void ui_mainloop(int is_batch_mode) {
     int i;
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
+	  	/* 调用cmd_table[i]对应的函数，并传入参数args */
         if (cmd_table[i].handler(args) < 0) { return; }
         break;
       }
