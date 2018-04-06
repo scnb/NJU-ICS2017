@@ -78,6 +78,47 @@ static int cmd_si(char *args)
 	}
 }
 
+/* print registers' info or wathcpoint info */
+static int cmd_info(char *args)
+{
+	/* if *args == "r", print 8 registers'(gpr) info */
+	if (*args == "r")
+	{
+		for (int index = 0;index<8;index++)
+		{
+			 /* print the register's name, its hex value, and its dec value */
+			printf("%s %X %d\n",regsl(index), reg_l(index), reg_l(index));
+		}
+	}
+}
+
+/* this command's format is : x N EXPR
+ * first:  calculate EXPR's value
+ * second: treat the value as the starting address of memory
+ * third:  print N 4 bytes in hex in series
+ */
+static int cmd_x(char *args)
+{
+	int N = 0;
+	int i = 0;
+	/* get integer N from string */
+	while (args[i]!= ' ')
+	{
+		N *= 10;
+		N += (int)args[i];
+	}
+	char delims[] = " ";
+	char *addr = NULL;
+	addr = strtok(args, delims);
+	addr = strtok(NULL, delims);
+	for (int index = 0;index<N;index++)
+	{
+		printf("%X:				 %X		%d\n", *args,vaddr_read(addr, 1), vaddr_read(addr, 1));
+		/* add 4 bytes to the address */
+		addr += 4;
+	}
+}
+
 static int cmd_help(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
