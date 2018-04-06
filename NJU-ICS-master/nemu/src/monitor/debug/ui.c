@@ -113,7 +113,8 @@ static int cmd_x(char *args)
 	addr = strtok(NULL, delims);
 	for (int index = 0;index<N;index++)
 	{
-		printf("%X:				 %X		%d\n", *args,vaddr_read(addr, 1), vaddr_read(addr, 1));
+	   /* read 4 bytes once */
+		printf("%X:				 %X		%d\n", *args,vaddr_read(addr, 4), vaddr_read(addr, 4));
 		/* add 4 bytes to the address */
 		addr += 4;
 	}
