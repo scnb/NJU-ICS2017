@@ -60,6 +60,8 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   {"si","Let program execute(single step) N instructions and pause; when N is not given, the default is 1",cmd_si},
+  {"info", "Print register's status or print watchpoint information", cmd_info},
+  {"x", "Scannf memory,example:x N EXPR, calculate value of EXPR, and treat it as starting address, print N 4 bytes in hex in seires", cmd_x},
   /* TODO: Add more commands */
 
 };
