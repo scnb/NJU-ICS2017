@@ -45,6 +45,10 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
+static int cmd_si(char *args);
+static int cmd_info(char *args);
+static int cmd_x(char *args);
+
 
 /* help info that cmd_help function will print */
 static struct {
