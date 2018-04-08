@@ -80,6 +80,7 @@ static int cmd_si(char *args)
 		int N = (int)(*args);
 		cpu_exec(N);
 	}
+	return 0;
 }
 
 /* print registers' info or wathcpoint info */
@@ -94,6 +95,7 @@ static int cmd_info(char *args)
 			printf("%s %X %d\n",regsl(index), reg_l(index), reg_l(index));
 		}
 	}
+	return 0;
 }
 
 /* this command's format is : x N EXPR
@@ -122,6 +124,7 @@ static int cmd_x(char *args)
 		/* add 4 bytes to the address */
 		addr += 4;
 	}
+	return 0;
 }
 
 static int cmd_help(char *args) {
