@@ -95,7 +95,7 @@ static int cmd_info(char *args)
 		for (int index = 0;index<8;index++)
 		{
 			 /* print the register's name, its hex value, and its dec value */
-			printf("%s %X %d\n",regsl(index), reg_l(index), reg_l(index));
+			printf("%s %X %d\n",regsl[index], reg_l(index), reg_l(index));
 		}
 	}
 	return 0;
