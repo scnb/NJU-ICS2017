@@ -3,6 +3,7 @@
 #include "monitor/watchpoint.h"
 #include "nemu.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -89,7 +90,7 @@ static int cmd_si(char *args)
 static int cmd_info(char *args)
 {
 	/* if *args == "r", print 8 registers'(gpr) info */
-	if (*args == "r")
+	if (!strcmp(args, "r"))
 	{
 		for (int index = 0;index<8;index++)
 		{
@@ -109,22 +110,25 @@ static int cmd_x(char *args)
 {
 	int N = 0;
 	int i = 0;
+	int index = 0;
+	char delims[] = " ";
+	char *addr = NULL;
+	int address = 0;
 	/* get integer N from string */
 	while (args[i]!= ' ')
 	{
 		N *= 10;
-		N += (int)args[i];
+		N += (args[i] - '0');
 	}
-	char delims[] = " ";
-	char *addr = NULL;
 	addr = strtok(args, delims);
 	addr = strtok(NULL, delims);
-	for (int index = 0;index<N;index++)
+	sprintf(addr, "%d", address);
+	for (index = 0;index < N;index++)
 	{
 	   /* read 4 bytes once */
-		printf("%X:				 %X		%d\n", *args,vaddr_read(addr, 4), vaddr_read(addr, 4));
+		printf("%X:				 %X		%d\n", *args,vaddr_read(address, 4), vaddr_read(address, 4));
 		/* add 4 bytes to the address */
-		addr += 4;
+		address += 4;
 	}
 	return 0;
 }
