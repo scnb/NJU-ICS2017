@@ -7,7 +7,7 @@
 //enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
 //enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 
-enum { R_EAX, R_EDX, R_ECX, R_EBX, R_EBP, R_ESI, RDI, R_ESP };
+enum { R_EAX, R_EDX, R_ECX, R_EBX, R_EBP, R_ESI, R_EDI, R_ESP };
 enum { R_AX, R_DX, R_CX, R_BX, R_BP, R_SI, R_DI, R_SP };
 enum { R_AL, R_DL, R_CL, R_BL, R_AH, R_DH, R_CH, R_BH };
 
