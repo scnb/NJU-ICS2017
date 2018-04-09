@@ -15,8 +15,8 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  * For more details about the register encoding scheme, see i386 manual.
  */
 
-typedef union {
-  struct {
+typedef struct {
+  union {
     uint32_t _32;					//32 bits register
     uint16_t _16;					//16 bits register
     uint8_t _8[2];					//the high 8 bits register and low 8 bits register
