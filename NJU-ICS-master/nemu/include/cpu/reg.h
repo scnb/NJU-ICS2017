@@ -2,14 +2,10 @@
 #define __REG_H__
 
 #include "common.h"
-//原始的数据 
-//enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
-//enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
-//enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 
-enum { R_EAX, R_EDX, R_ECX, R_EBX, R_EBP, R_ESI, R_EDI, R_ESP };
-enum { R_AX, R_DX, R_CX, R_BX, R_BP, R_SI, R_DI, R_SP };
-enum { R_AL, R_DL, R_CL, R_BL, R_AH, R_DH, R_CH, R_BH };
+enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
+enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
+enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 
 
 /* TODO: Re-organize the `CPU_state' structure to match the register
@@ -32,7 +28,7 @@ typedef struct {
    * in PA2 able to directly access these registers.
    */
  // rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;   
-  rtlreg_t eax, edx, ecx, ebx, ebp, esi, edi, esp;
+  rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 
   vaddr_t eip;
 
