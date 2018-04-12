@@ -130,7 +130,7 @@ static int cmd_x(char *args)
 	printf("i = %d\n", i);
 	strcpy(addr, args+i);
 	printf("addr = %s\n", addr);
-	sprintf(addr, "%d", address);
+	address = atoi(addr);
 	printf("address = %d\n", address);
 	for (index = 0;index < N;index++)
 	{
