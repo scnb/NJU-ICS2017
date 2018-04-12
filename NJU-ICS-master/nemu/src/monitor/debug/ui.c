@@ -121,17 +121,10 @@ static int cmd_x(char *args)
 		N += (args[i] - '0');
 		i++;
 	}
-	printf("N = %d\n", N);
-	printf("i = %d\n", i);
-	//addr = strtok(args, delims);
-	//addr = strtok(NULL, delims);
 	/* Jump over the 0x */
 	i += 3;
-	printf("i = %d\n", i);
 	strcpy(addr, args+i);
-	printf("addr = %s\n", addr);
 	address = atoi(addr);
-	printf("address = %d\n", address);
 	for (index = 0;index < N;index++)
 	{
 	   /* read 4 bytes once */
