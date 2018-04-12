@@ -130,6 +130,7 @@ static int cmd_x(char *args)
 	}
 	i++;
 	strcpy(addr, args+i);
+	printf("addr = %s\n", addr);
 	sprintf(addr, "%d", address);
 	printf("address = %d\n", address);
 	for (index = 0;index < N;index++)
