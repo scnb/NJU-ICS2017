@@ -111,9 +111,11 @@ static int cmd_x(char *args)
 	int N = 0;
 	int i = 0;
 	int index = 0;
-	//char delims[] = " ";
+	int exp = 0;
+	int base = 16;
 	char addr[10] = "";
-	int address = 0;
+	int address_hex = 0;
+	int address_dec = 0;
 	/* get integer N from string */
 	while (args[i]!= ' ')
 	{
@@ -124,13 +126,24 @@ static int cmd_x(char *args)
 	/* Jump over the 0x */
 	i += 3;
 	strcpy(addr, args+i);
-	address = atoi(addr);
+	address_hex = atoi(addr);
+	/* 进制转换 hex to dec */
+	while (address_hex > 0)
+	{
+		int temp = address_hex % 10;
+		/* exp is base's exponent */
+		base *= exp;
+		address_dec += temp * base;
+		address_hex /= 10;
+		exp++;
+	}
 	for (index = 0;index < N;index++)
 	{
 	   /* read 4 bytes once */
-		printf("%X:		%X		%d\n", *args,vaddr_read(address, 4), vaddr_read(address, 4));
+	   /* Note:the address must be in dec format, even though you entered in hex format */
+	   	printf("%X:		%X		%d\n", *args,vaddr_read(address_dec, 4), vaddr_read(address_dec, 4));
 		/* add 4 bytes to the address */
-		address += 4;
+		address_dec += 4;
 	}
 	return 0;
 }
