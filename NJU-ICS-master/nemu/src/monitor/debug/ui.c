@@ -95,7 +95,7 @@ static int cmd_info(char *args)
 		for (int index = 0;index<8;index++)
 		{
 			 /* print the register's name, its hex value, and its dec value */
-			printf("%s 0X%.8X %.8d\n",regsl[index], reg_l(index), reg_l(index));
+			printf("%s 0X%.8X %d\n",regsl[index], reg_l(index), reg_l(index));
 		}
 	}
 	return 0;
@@ -111,7 +111,7 @@ static int cmd_x(char *args)
 	int N = 0;
 	int i = 0;
 	int index = 0;
-	char delims[] = " ";
+	//char delims[] = " ";
 	char *addr = NULL;
 	int address = 0;
 	/* get integer N from string */
@@ -121,8 +121,15 @@ static int cmd_x(char *args)
 		N += (args[i] - '0');
 		i++;
 	}
-	addr = strtok(args, delims);
-	addr = strtok(NULL, delims);
+	//addr = strtok(args, delims);
+	//addr = strtok(NULL, delims);
+	/* Using loop to read address rather than using strtok */
+	while (args[i] != 'x' || args[i] != 'X')
+	{	
+		i++;
+	}
+	i++;
+	strcpy(addr, args+i);
 	sprintf(addr, "%d", address);
 	printf("address = %d\n", address);
 	for (index = 0;index < N;index++)
