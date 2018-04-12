@@ -112,7 +112,7 @@ static int cmd_x(char *args)
 	int i = 0;
 	int index = 0;
 	//char delims[] = " ";
-	char *addr = NULL;
+	char addr[10] = "";
 	int address = 0;
 	/* get integer N from string */
 	while (args[i]!= ' ')
@@ -128,7 +128,7 @@ static int cmd_x(char *args)
 	/* Jump over the 0x */
 	i += 3;
 	printf("i = %d\n", i);
-	strcpy(addr, args);
+	strcpy(addr, args+i);
 	printf("addr = %s\n", addr);
 	sprintf(addr, "%d", address);
 	printf("address = %d\n", address);
