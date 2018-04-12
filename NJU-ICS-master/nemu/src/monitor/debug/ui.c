@@ -128,7 +128,7 @@ static int cmd_x(char *args)
 	/* Jump over the 0x */
 	i += 3;
 	printf("i = %d\n", i);
-	strcpy(addr, args+i);
+	strcpy(addr, args);
 	printf("addr = %s\n", addr);
 	sprintf(addr, "%d", address);
 	printf("address = %d\n", address);
