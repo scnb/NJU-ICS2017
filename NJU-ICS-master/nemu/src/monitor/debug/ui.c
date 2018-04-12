@@ -132,10 +132,11 @@ static int cmd_x(char *args)
 	{
 		int temp = address_hex % 10;
 		/* exp is base's exponent */
-		base *= exp;
-		address_dec += temp * base;
+		exp = base * t;
+		address_dec += temp * exp;
 		address_hex /= 10;
-		exp++;
+		base *= base;
+		t++;
 	}
 	printf("address = %d\n", address_dec);
 	for (index = 0;index < N;index++)
