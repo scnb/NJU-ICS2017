@@ -124,10 +124,11 @@ static int cmd_x(char *args)
 	addr = strtok(args, delims);
 	addr = strtok(NULL, delims);
 	sprintf(addr, "%d", address);
+	printf("address = %d\n", address);
 	for (index = 0;index < N;index++)
 	{
 	   /* read 4 bytes once */
-		printf("%X:				 %X		%d\n", *args,vaddr_read(address, 4), vaddr_read(address, 4));
+		printf("%X:		%X		%d\n", *args,vaddr_read(address, 4), vaddr_read(address, 4));
 		/* add 4 bytes to the address */
 		address += 4;
 	}
