@@ -122,6 +122,7 @@ static int cmd_x(char *args)
 		i++;
 	}
 	printf("N = %d\n", N);
+	printf("i = %d\n", i);
 	//addr = strtok(args, delims);
 	//addr = strtok(NULL, delims);
 	/* Using loop to read address rather than using strtok */
