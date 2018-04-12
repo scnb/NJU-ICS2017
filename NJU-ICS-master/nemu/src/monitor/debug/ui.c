@@ -119,6 +119,7 @@ static int cmd_x(char *args)
 	{
 		N *= 10;
 		N += (args[i] - '0');
+		i++;
 	}
 	addr = strtok(args, delims);
 	addr = strtok(NULL, delims);
