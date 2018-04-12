@@ -137,6 +137,7 @@ static int cmd_x(char *args)
 		address_hex /= 10;
 		exp++;
 	}
+	printf("address = %d\n", address_dec);
 	for (index = 0;index < N;index++)
 	{
 	   /* read 4 bytes once */
