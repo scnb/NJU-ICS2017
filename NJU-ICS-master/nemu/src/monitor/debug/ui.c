@@ -111,8 +111,7 @@ static int cmd_x(char *args)
 	int N = 0;
 	int i = 0;
 	int index = 0;
-	int exp = 0;
-	int base = 16;
+	int base = 1;
 	char addr[10] = "";
 	int address_hex = 0;
 	int address_dec = 0;
@@ -132,11 +131,9 @@ static int cmd_x(char *args)
 	{
 		int temp = address_hex % 10;
 		/* exp is base's exponent */
-		exp = base * t;
-		address_dec += temp * exp;
+		address_dec += temp * base;
 		address_hex /= 10;
-		base *= base;
-		t++;
+		base *= 16;
 	}
 	printf("address = %d\n", address_dec);
 	for (index = 0;index < N;index++)
