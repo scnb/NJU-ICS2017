@@ -141,10 +141,10 @@ static int cmd_x(char *args)
 	{
 	   /* read 4 bytes once */
 	   /* Note:the address must be in dec format, even though you entered in hex format */
-	   	printf("0x%d:		%8X		%d\n", address_hex,vaddr_read(address_dec, 1), vaddr_read(address_dec, 1));
+	   	printf("0x%d:		%8X		%d\n", address_hex,vaddr_read(address_dec, 4), vaddr_read(address_dec, 4));
 		/* add 4 bytes to the address */
-		address_hex += 1;
-		address_dec += 1;
+		address_hex += 4;
+		address_dec += 4;
 	}
 	return 0;
 }
