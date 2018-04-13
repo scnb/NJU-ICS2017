@@ -135,7 +135,8 @@ static int cmd_x(char *args)
 		address_hex /= 10;
 		base *= 16;
 	}
-	printf("address = %d\n", address_dec);
+	address_hex = atoi(addr);
+	//printf("address = %d\n", address_dec);		//using for debug
 	for (index = 0;index < N;index++)
 	{
 	   /* read 4 bytes once */
