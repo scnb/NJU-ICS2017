@@ -33,7 +33,7 @@ char* rl_gets() {
 /* continue to run the program which had been stopped before */
 static int cmd_c(char *args) {
  /* when the arg of cpu_exec is -1, it means cpu runs without stop */
- /* because the argument's tyep of cpu_exec is uint64_t, so -1 will
+ /* because the argument's type of cpu_exec is uint64_t, so -1 will
    * be turn to a very very large number: 1111……1111(total 64)
  */
   cpu_exec(-1);
