@@ -10,7 +10,13 @@ enum {
   TK_NOTYPE = 256, TK_EQ
 
   /* TODO: Add more token types */
-
+  '+' = 255,
+  '-' = 254,
+  '*' = 253,
+  '/' = 252,
+  '(' = 251,
+  ')' = 250,
+   NUM   = 249
 };
 
 static struct rule {
@@ -22,8 +28,14 @@ static struct rule {
    * Pay attention to the precedence level(优先级) of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
+  {" +", TK_NOTYPE},    // spaces, + means match front substr once or more times
+  {"\+", '+'},         // plus
+  {"\-", '-'},// minus
+  {"\*", '*'},// multiply 
+  {"\/", '/'},// division
+  {"\(", '('},// left bracket
+  {"\)", ')'},// right bracket
+  {"^-?[1-9]\d*$", NUM},//integer
   {"==", TK_EQ}         // equal
 };
 
@@ -40,9 +52,11 @@ void init_regex() {
   int ret;
 
   for (i = 0; i < NR_REGEX; i ++) {
+  	/* regcomp is used to compile RE,将指定的正则表达式rules[i].regex编译成一种特定的数据格式(regex_t) */
     ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
     if (ret != 0) {
       regerror(ret, &re[i], error_msg, 128);
+	  /* if compilation goes wrong, it means there are bugs in RE */
       panic("regex compilation failed: %s\n%s", error_msg, rules[i].regex);
     }
   }
@@ -53,7 +67,9 @@ typedef struct token {
   char str[32];
 } Token;
 
+/* store tokens has been recognized in order */
 Token tokens[32];
+/* number of tokens has been recognized */
 int nr_token;
 
 static bool make_token(char *e) {
@@ -66,6 +82,7 @@ static bool make_token(char *e) {
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
+		/* regexec is used to match RE, and once only match 1 char */
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
@@ -79,6 +96,20 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
+		
+		/* Notice:for dec number , I should also record its value which is in the substr */
+		if (rules]i].token_type == NUM)
+		{
+			 tokens[nr_token].type = rules[i].token_type;
+			 strcat(tokens[nr_token].str, e[position]);
+		}
+        else
+		{
+			tokens[nr_token].type = rules[i].token_type;
+        }
+
+			
+		
         switch (rules[i].token_type) {
           default: TODO();
         }
