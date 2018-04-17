@@ -9,11 +9,11 @@
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
+void make_tokens(char *e);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
   static char *line_read = NULL;
-
   if (line_read) {
   	/* After using the allocated variable, you must free it */ 
     free(line_read);
@@ -49,7 +49,7 @@ static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
-
+static int cmd_p(char *args);
 
 /* help info that cmd_help function will print */
 static struct {
@@ -63,6 +63,7 @@ static struct {
   {"si","Let program execute(single step) N instructions and pause; when N is not given, the default is 1",cmd_si},
   {"info", "Print register's status or print watchpoint information", cmd_info},
   {"x", "Scannf memory,example:x N EXPR, calculate value of EXPR, and treat it as starting address, print N 4 bytes in hex in seires", cmd_x},
+  {"p", "Evaluate EXPR's value, such as p EXPR", cmd_p},
   /* TODO: Add more commands */
 
 };
@@ -148,6 +149,14 @@ static int cmd_x(char *args)
 	}
 	return 0;
 }
+
+
+static int cmd_p(char *args)
+{
+	make_tokens(args);
+	return 0;
+}
+
 
 static int cmd_help(char *args) {
   /* extract the first argument */
