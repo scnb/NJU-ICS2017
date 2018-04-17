@@ -3,13 +3,14 @@
 #include "monitor/watchpoint.h"
 #include "nemu.h"
 
+#include "expr.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
-void make_token(char *e);
+static bool make_token(char *e);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
