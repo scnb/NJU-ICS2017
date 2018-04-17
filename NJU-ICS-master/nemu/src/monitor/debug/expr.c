@@ -8,16 +8,16 @@
 
 enum {
   TK_NOTYPE = 256, 		//start from 256, and increase one by one
-  TK_EQ，
+  TK_EQ,
 
   /* TODO: Add more token types */
-  '+'，
-  '-'，
-  '*' ，
-  '/'，
-  '(' ，
-  ')' ，
-   NUM ，
+  TK_PLUS,
+  TK_MINUS,
+  TK_MULTI,
+  TK_DIVI,
+  TK_LBRACKET,
+  TK_RBRACKET,
+  TK_NUM,
 };
 
 static struct rule {
@@ -30,13 +30,13 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces, + means match front substr once or more times
-  {"\+", '+'},         // plus
-  {"\-", '-'},// minus
-  {"\*", '*'},// multiply 
-  {"\/", '/'},// division
-  {"\(", '('},// left bracket
-  {"\)", ')'},// right bracket
-  {"^-?[1-9]\d*$", NUM},//integer
+  {"\\+", TK_PLUS},         // plus
+  {"\\-", TK_MINUS},// minus
+  {"\\*", TK_MULTI},// multiply 
+  {"\\/", TK_DIVI},// division
+  {"\\(", TK_LBRACKET},// left bracket
+  {"\\)", TK_RBRACKET},// right bracket
+  {"^-?[1-9]\\d*$", TK_NUM},//integer
   {"==", TK_EQ}         // equal
 };
 
@@ -99,10 +99,11 @@ static bool make_token(char *e) {
 
 		
 		/* Notice:for dec number , I should also record its value which is in the substr */
-		if (rules]i].token_type == NUM)
+		if (rules[i].token_type == TK_NUM)
 		{
 			 tokens[nr_token].type = rules[i].token_type;
-			 strcat(tokens[nr_token].str, e[position]);
+			 char *temp = e+position;
+			 strcat(tokens[nr_token].str, temp);
 		}
         else
 		{
