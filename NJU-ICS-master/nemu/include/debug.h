@@ -14,7 +14,7 @@ extern FILE* log_fp;
     } \
   } while (0)
 #else
-#	define Log_write(format, ...)
+#define Log_write(format, ...)
 #endif
 
 /* The function Log is used to print debug informations.
