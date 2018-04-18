@@ -5,7 +5,6 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-#include "monitor/expr.h"
 
 enum {
   TK_NOTYPE = 256, 		//start from 256, and increase one by one
@@ -100,21 +99,17 @@ static bool make_token(char *e) {
 
 		
 		/* Notice:for dec number , I should also record its value which is in the substr */
-		if (rules[i].token_type == TK_NUM)
-		{
-			 tokens[nr_token].type = rules[i].token_type;
-			 char *temp = e+position;
-			 strcat(tokens[nr_token].str, temp);
-		}
-        else
-		{
-			tokens[nr_token].type = rules[i].token_type;
-        }
-
-			
-		
         switch (rules[i].token_type) {
-          default: TODO();
+			case TK_NUM:
+				tokens[nr_token].type = rules[i].token_type;
+				char *temp = e + position;
+				strcat(tokens[nr_token].str, temp);
+				nr_token++;
+				break;
+          default:
+				tokens[nr_token].type = rules[i].token_type;
+				nr_token++;
+				break;
         }
 
         break;
