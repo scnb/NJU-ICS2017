@@ -9,7 +9,6 @@
 enum {
   TK_NOTYPE = 256, 		//start from 256, and increase one by one
   TK_EQ,
-
   /* TODO: Add more token types */
   TK_PLUS,
   TK_MINUS,
@@ -100,6 +99,7 @@ static bool make_token(char *e) {
 		
 		/* Notice:for dec number , I should also record its value which is in the substr */
         switch (rules[i].token_type) {
+			case TK_NOTYPE:break;		//just jump the space
 			case TK_NUM:
 				tokens[nr_token].type = rules[i].token_type;
 				char *temp = e + position;
@@ -124,6 +124,14 @@ static bool make_token(char *e) {
 
   return true;
 }
+
+/* test whether expression is surrounded by a matched pair of brackets, 
+ * or the left bracket and the right bracket is not matched
+ */
+ static bool check_parentheses(int p, int q)
+{
+
+ }
 
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
